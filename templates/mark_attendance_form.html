@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="max-width:600px; margin:40px auto; background:#fff; padding:30px; border-radius:12px; 
+            box-shadow:0 4px 15px rgba(0,0,0,0.1); font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+
+  <h2 style="text-align:center; color:#6a1b9a; margin-bottom:25px; font-size:28px; text-shadow:0 1px 2px rgba(0,0,0,0.1);">
+    📋 Mark Attendance - Step 1
+  </h2>
+
+  <form method="post" action="{{ url_for('mark_attendance') }}" 
+        style="display:flex; flex-direction:column; gap:18px;">
+
+    <!-- Class Selection -->
+    <div>
+      <label style="font-weight:600; color:#4a148c;">Class:</label><br>
+      <select name="class_id" required 
+              style="width:100%; padding:10px; border:1px solid #ccc; border-radius:8px; font-size:15px; outline:none;">
+        <option value="">--Select class--</option>
+        {% for c in classes %}
+          <option value="{{ c.class_id }}">{{ c.class_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Subject Selection -->
+    <div>
+      <label style="font-weight:600; color:#4a148c;">Subject:</label><br>
+      <select name="subject_id" required 
+              style="width:100%; padding:10px; border:1px solid #ccc; border-radius:8px; font-size:15px; outline:none;">
+        <option value="">--Select subject--</option>
+        {% for s in subjects %}
+          <option value="{{ s.subject_id }}">{{ s.subject_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Date Selection -->
+    <div>
+      <label style="font-weight:600; color:#4a148c;">Date:</label><br>
+      <input type="date" name="date" value="{{ '' }}" required
+             style="width:100%; padding:10px; border:1px solid #ccc; border-radius:8px; font-size:15px; outline:none;">
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" 
+            style="background:linear-gradient(135deg,#9c27b0,#6a1b9a); color:#fff; padding:12px; border:none; 
+                   border-radius:8px; font-size:16px; font-weight:600; cursor:pointer; transition:0.3s;">
+      🚀 Load Students
+    </button>
+
+  </form>
+</div>
+{% endblock %}

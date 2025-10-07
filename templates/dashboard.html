@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block content %}
+  <style>
+    h2 {
+      font-size: 26px;
+      color: #007bff;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .dashboard-container {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .menu {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    .menu ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .menu li {
+      margin: 12px 0;
+    }
+
+    .menu a {
+      display: block;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      padding: 10px 15px;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    .menu a:hover {
+      background: #007bff;
+      color: #fff;
+    }
+
+    .chart-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+
+    canvas {
+      max-width: 100%;
+    }
+  </style>
+
+  <h2>Dashboard ({{ role | capitalize }})</h2>
+  <div class="dashboard-container">
+    
+    <!-- Sidebar Menu -->
+    <div class="menu">
+      <ul>
+        <li><a href="{{ url_for('students') }}">👨‍🎓 Students</a></li>
+        <li><a href="{{ url_for('add_student_form') }}">➕ Add Student</a></li>
+        <li><a href="{{ url_for('mark_attendance') }}">✅ Mark Attendance</a></li>
+        <li><a href="{{ url_for('view_attendance') }}">📊 View Attendance</a></li>
+        <li><a href="{{ url_for('view_leaves') }}">📅 View Leaves</a></li>
+        {% if role == 'student' %}
+          <li><a href="{{ url_for('apply_leave') }}">✍️ Apply Leave</a></li>
+        {% endif %}
+      </ul>
+    </div>
+
+    <!-- Attendance Chart -->
+    <div class="chart-card">
+      <h3 style="margin-bottom:15px; text-align:center; color:#333;">Attendance Overview</h3>
+      <canvas id="attendanceChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Chart.js Script -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const ctx = document.getElementById('attendanceChart').getContext('2d');
+    const attendanceChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Present', 'Absent'],
+        datasets: [{
+          label: 'Attendance',
+          data: [{{present_count}}, {{absent_count}}],  // sample data; replace dynamically later
+          backgroundColor: ['#e83e8c', '#6f42c1'],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { font: { size: 14 } }
+          }
+        }
+      }
+    });
+  </script>
+{% endblock %}

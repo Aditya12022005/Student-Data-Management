@@ -1,0 +1,56 @@
+
+
+{% extends "base.html" %}
+{% block content %}
+
+<h2 style="text-align:center; color:#4a148c; margin-bottom:25px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+  ➕ Add Student
+</h2>
+
+<div style="width:60%; margin:auto; background:#ffffff; padding:30px; border-radius:12px; 
+            box-shadow:0 6px 18px rgba(0,0,0,0.15); font-family:'Segoe UI', Tahoma, sans-serif;">
+
+  <form method="post" action="{{ url_for('add_student') }}">
+    
+    <div style="margin-bottom:18px;">
+      <label style="display:block; margin-bottom:6px; font-weight:bold; color:#333;">Name</label>
+      <input name="name" required
+             style="width:100%; padding:10px; border:1px solid #ccc; border-radius:8px; font-size:15px;">
+    </div>
+
+    <div style="margin-bottom:18px;">
+      <label style="display:block; margin-bottom:6px; font-weight:bold; color:#333;">Email</label>
+      <input name="email" type="email" required
+             style="width:100%; padding:10px; border:1px solid #ccc; border-radius:8px; font-size:15px;">
+    </div>
+
+    <div style="margin-bottom:18px;">
+      <label style="display:block; margin-bottom:6px; font-weight:bold; color:#333;">Password (optional)</label>
+      <input name="password" type="password"
+             style="width:100%; padding:10px; border:1px solid #ccc; border-radius:8px; font-size:15px;">
+    </div>
+
+    <div style="margin-bottom:22px;">
+      <label style="display:block; margin-bottom:6px; font-weight:bold; color:#333;">Class</label>
+      <select name="class_id" required
+              style="width:100%; padding:10px; border:1px solid #ccc; border-radius:8px; font-size:15px; background:#fafafa;">
+        <option value="">--Select--</option>
+        {% for c in classes %}
+          <option value="{{ c.class_id }}">{{ c.class_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div style="text-align:center;">
+      <button type="submit" 
+              style="background:linear-gradient(135deg, #9c27b0, #e91e63); color:#fff; 
+                     padding:12px 28px; border:none; border-radius:10px; 
+                     font-size:16px; cursor:pointer; transition:0.3s;">
+        ➕ Add Student
+      </button>
+    </div>
+
+  </form>
+</div>
+
+{% endblock %}

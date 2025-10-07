@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:1000px; margin:40px auto; background:#fff; padding:25px; border-radius:12px; 
+            box-shadow:0 4px 15px rgba(0,0,0,0.1); font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+
+  <h2 style="text-align:center; color:#6a1b9a; margin-bottom:20px; font-size:26px;">
+    📝 Leave Applications
+  </h2>
+
+  <table style="width:100%; border-collapse:collapse; text-align:center; font-size:15px;">
+    <thead>
+      <tr style="background:#6a1b9a; color:#fff;">
+        <th style="padding:12px;">ID</th>
+        <th style="padding:12px;">Student</th>
+        <th style="padding:12px;">From</th>
+        <th style="padding:12px;">To</th>
+        <th style="padding:12px;">Reason</th>
+        <th style="padding:12px;">Status</th>
+        <th style="padding:12px;">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for l in leaves %}
+      <tr {% if loop.index is even %} style="background:#f3e5f5;" {% else %} style="background:#ffffff;" {% endif %}>
+        <td style="padding:10px;">{{ l.leave_id }}</td>
+        <td style="padding:10px;">{{ l.student_name }}</td>
+        <td style="padding:10px;">{{ l.from_date }}</td>
+        <td style="padding:10px;">{{ l.to_date }}</td>
+        <td style="padding:10px;">{{ l.reason }}</td>
+        <td style="padding:10px; font-weight:600;">
+          {{ l.status }}
+        </td>
+        <td style="padding:10px;">
+          {% if session.user_role == 'faculty' %}
+            <a href="{{ url_for('approve_leave', leave_id=l.leave_id) }}" 
+               style="background:#28a745; color:#fff; padding:6px 12px; border-radius:6px; text-decoration:none; margin-right:6px; font-size:14px;">
+               Approve
+            </a>
+            <a href="{{ url_for('reject_leave', leave_id=l.leave_id) }}" 
+               style="background:#dc3545; color:#fff; padding:6px 12px; border-radius:6px; text-decoration:none; font-size:14px;">
+               Reject
+            </a>
+          {% else %}
+            <span style="color:#666;">N/A</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

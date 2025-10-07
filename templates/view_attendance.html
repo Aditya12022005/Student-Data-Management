@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Attendance Records</h2>
+<table border="1">
+<tr><th>ID</th><th>Student</th><th>Subject</th><th>Date</th><th>Status</th></tr>
+{% for r in records %}
+<tr>
+  <td>{{ r.attendance_id }}</td>
+  <td>{{ r.student_name }}</td>
+  <td>{{ r.subject_name }}</td>
+  <td>{{ r.date }}</td>
+  <td>{{ r.status }}</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

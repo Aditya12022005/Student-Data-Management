@@ -1,0 +1,22 @@
+
+{% block content %}
+<h2 style="text-align:center; font-family: Arial, sans-serif; color:#333;">Login</h2>
+
+<form method="post" 
+      style="max-width:350px; margin:40px auto; padding:20px; border:1px solid #ccc; border-radius:10px; background:#f9f9f9; box-shadow:0 4px 8px rgba(0,0,0,0.1); font-family: Arial, sans-serif;">
+
+  <label style="display:block; margin-bottom:6px; font-weight:bold; color:#444;">Email</label>
+  <input type="email" name="email" required
+         style="width:100%; padding:10px; margin-bottom:15px; border:1px solid #ccc; border-radius:6px; font-size:14px;">
+
+  <label style="display:block; margin-bottom:6px; font-weight:bold; color:#444;">Password</label>
+  <input type="password" name="password" required
+         style="width:100%; padding:10px; margin-bottom:20px; border:1px solid #ccc; border-radius:6px; font-size:14px;">
+
+  <button type="submit"
+          style="width:100%; padding:10px; background:#007BFF; color:white; font-size:16px; border:none; border-radius:6px; cursor:pointer;">
+          Login
+  </button>
+
+</form>
+{% endblock %}
